@@ -2,8 +2,7 @@ import { Client } from "discord.js";
 
 const
     client = new Client(),
-    token = "ODI4MTM1OTUwMTM5Nzg1MjI3.YGlLtA.TG2MuP8ocWn8sLDpJwtMlhqY8NQ";
-
+    token = process.env.DISCORD_BOT_TOKEN;
 
 client.on("ready", () => {
     console.log(`Logged in with ${client.user?.tag || "[Secret]"}.`);
