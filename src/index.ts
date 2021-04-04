@@ -2,7 +2,9 @@ import { Client } from "discord.js";
 
 const
     client = new Client(),
-    token = process.env.DISCORD_BOT_TOKEN;
+    token = process.argv.length > 2 && process.argv[2] === "--development"
+        ? process.env.DISCORD_BOT_TOKEN_DEV
+        : process.env.DISCORD_BOT_TOKEN;
 
 client.on("ready", () => {
     console.log(`Logged in with ${client.user?.tag || "[Secret]"}.`);
