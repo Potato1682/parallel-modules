@@ -37,8 +37,6 @@
         "target": "esnext",
         "types": [
             "@types/node",
-            "@types/mocha",
-            "@types/chai"
         ]
     },
     "include": [
