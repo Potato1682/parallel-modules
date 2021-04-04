@@ -1,13 +1,16 @@
 import fs from "fs";
 import { Client, Collection } from "discord.js";
 
+const commands = new Collection<string, any>();
+
+export { commands };
+
 const main = async () => {
     const
         client = new Client(),
         token = process.argv.length > 2 && process.argv[2] === "--development"
             ? process.env.DISCORD_BOT_TOKEN_DEV
             : process.env.DISCORD_BOT_TOKEN,
-        commands = new Collection<string, any>(),
         cooldowns = new Collection<string, Collection<string, any>>(),
         commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".ts"));
 
@@ -72,7 +75,7 @@ const main = async () => {
         setTimeout(() => timestamps["delete"](message.author.id), cooldownAmount);
 
         try {
-            command.execute(message, arguments_);
+            await command.execute(message, arguments_);
         } catch (error) {
             console.error(error);
 
