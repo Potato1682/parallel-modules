@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-import { commands } from "../src";
+import { commands } from "..";
 
 const help = {
     aliases: [],
