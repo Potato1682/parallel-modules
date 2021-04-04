@@ -14,7 +14,7 @@ const help = {
             data.push(
                 "**コマンド一覧**",
                 commands.map(command => `\`${command.name}\``).join(", "),
-                "\n.help [コマンド名]で指定したコマンドのヘルプを確認できます。"
+                "\n`.help [コマンド名]`で指定したコマンドのヘルプを確認できます。"
             );
 
             return await message.author.send(data, { split: true })
