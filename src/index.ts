@@ -42,7 +42,7 @@ client.on("message", async (message) => {
         return;
     }
 
-    if (command.allowDM && message.channel.type !== "dm") {
+    if (!command.allowDM && message.channel.type === "dm") {
         return await message.reply("このコマンドはDMから実行できません。");
     }
 
