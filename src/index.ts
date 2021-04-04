@@ -11,6 +11,10 @@ client.on("ready", () => {
 });
 
 client.on("message", async (message) => {
+    if (message.author.bot) {
+        return;
+    }
+
     if (message.content === ".ping") {
         await message.channel.send("Pong!");
     }
