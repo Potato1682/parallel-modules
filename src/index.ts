@@ -45,11 +45,11 @@ const main = async () => {
         }
 
         if (command.allowDM && message.channel.type !== "dm") {
-            return message.reply("このコマンドはDMから実行できません。");
+            return await message.reply("このコマンドはDMから実行できません。");
         }
 
         if (command.args && arguments_.length === 0) {
-            return message.channel.send(`引数が必要です。\n.help ${commandName}でヘルプを閲覧してください。`);
+            return await message.channel.send(`引数が必要です。\n.help ${commandName}でヘルプを閲覧してください。`);
         }
 
         if (!cooldowns.has(command.name)) {
@@ -67,7 +67,7 @@ const main = async () => {
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
 
-                return message.reply(`\`${command.name}\`が実行できるようになるまで**${timeLeft.toFixed(1)}**秒お待ちください。`);
+                return await message.reply(`\`${command.name}\`が実行できるようになるまで**${timeLeft.toFixed(1)}**秒お待ちください。`);
             }
         }
 
@@ -75,11 +75,11 @@ const main = async () => {
         setTimeout(() => timestamps["delete"](message.author.id), cooldownAmount);
 
         try {
-            await command.execute(message, arguments_);
+            return await command.execute(message, arguments_);
         } catch (error) {
             console.error(error);
 
-            await message.reply("コマンド実行中にエラーが発生しました。");
+            return await message.reply("コマンド実行中にエラーが発生しました。");
         }
     });
 
