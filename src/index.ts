@@ -1,7 +1,9 @@
 import fs from "fs";
 import { Client, Collection } from "discord.js";
 
-const commands = new Collection<string, any>();
+import Command from "./interfaces/command";
+
+const commands = new Collection<string, Command>();
 
 export { commands };
 
@@ -14,7 +16,7 @@ const
     commandFiles = fs.readdirSync("./lib/commands").filter(command => command.endsWith(".js"));
 
 for (const file of commandFiles) {
-    const command = require(`../lib/commands/${file}`)["default"];
+    const command = new (require(`../lib/commands/${file}`)["default"])();
 
     commands.set(command.name, command);
 }
@@ -32,7 +34,7 @@ client.on("message", async (message) => {
         arguments_ = message.content.slice(".".length).split(/ +/),
         commandName = (arguments_.shift() || "").toLowerCase(),
         command = commands.get(commandName) ||
-                commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+            commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
     if (!command) {
         console.log(commands.map(p => p));
@@ -44,10 +46,6 @@ client.on("message", async (message) => {
         return await message.reply("このコマンドはDMから実行できません。");
     }
 
-    if (command.args && arguments_.length === 0) {
-        return await message.channel.send(`引数が必要です。\n.help ${commandName}でヘルプを閲覧してください。`);
-    }
-
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Collection<string, any>());
     }
@@ -55,7 +53,7 @@ client.on("message", async (message) => {
     const
         now = Date.now(),
         timestamps = cooldowns.get(command.name) || new Collection<string, any>(),
-        cooldownAmount = (command.cooldown || 3) * 1000;
+        cooldownAmount = command.cooldown * 1000;
 
     if (timestamps.has(message.author.id)) {
         const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
