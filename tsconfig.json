@@ -26,17 +26,12 @@
         "downlevelIteration": true,
         "incremental": true,
         "importHelpers": true,
-        "paths": {
-            "spinnies": [
-                "spinnies.d.ts"
-            ]
-        },
         "sourceMap": true,
         "strict": true,
         "stripInternal": true,
         "target": "esnext",
         "types": [
-            "@types/node",
+            "@types/node"
         ]
     },
     "include": [
@@ -44,7 +39,6 @@
     ],
     "exclude": [
         "docs/**/*",
-        "node_modules",
-        "tests"
+        "node_modules"
     ]
 }
