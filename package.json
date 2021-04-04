@@ -30,7 +30,6 @@
         "lint": "npm-run-all -p lint:*",
         "lint:js": "eslint .",
         "lint:md": "remark -r .remarkrc.js .",
-        "preinstall": "npx only-allow pnpm",
         "start": "node build/index.js"
     },
     "husky": {
