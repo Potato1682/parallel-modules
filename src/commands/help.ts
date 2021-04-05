@@ -50,7 +50,7 @@ export default class Help extends Command {
             .setAuthor("ヘルプ")
             .setDescription(command.description)
             .addFields(
-                { name: "使用法", value: `\`.${command.name} ${command.usage}\`` },
+                { name: "使用法", value: `\`.${command.name}${command.usage ? " " + command.usage : ""}\`` },
                 { inline: true, name: "クールダウン", value: `**${command.cooldown}**秒` },
                 { inline: true, name: "エイリアス", value: command.aliases.map(alias => `\`${alias}\``).join(", ") || "なし" }
             )
