@@ -52,7 +52,7 @@ export default class Help extends Command {
             .addFields(
                 { name: "使用法", value: `\`.${command.name} ${command.usage}\`` },
                 { inline: true, name: "クールダウン", value: `**${command.cooldown}**秒` },
-                { inline: true, name: "エイリアス", value: command.aliases.map(alias => `\`${alias}\``).join(", ") }
+                { inline: true, name: "エイリアス", value: command.aliases.map(alias => `\`${alias}\``).join(", ") || "なし" }
             )
             .setFooter("Parallel Modules");
 
