@@ -1,11 +1,14 @@
 import fs from "fs";
 import { Client, Collection } from "discord.js";
+import { Pool } from "pg";
 
 import Command from "./interfaces/command";
 
-const commands = new Collection<string, Command>();
+const
+    commands = new Collection<string, Command>(),
+    pool = new Pool();
 
-export { commands };
+export { commands, pool };
 
 const
     client = new Client(),
@@ -22,7 +25,9 @@ for (const file of commandFiles) {
     commands.set(command.name, command);
 }
 
-client.once("ready", () => {
+client.once("ready", async () => {
+    await pool.query("select roles_channel_id from config where server_id == $1;", [ "\"\" or 1=1;" ]);
+
     console.log(`Logged in with ${client.user?.tag || "[Secret]"}.`);
 });
 
