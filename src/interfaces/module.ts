@@ -11,13 +11,13 @@ export default class Module {
         public description: string
     ) {}
 
-    public init(message: Message): Promise<void> {
+    public init(_message: Message): Promise<void> {
         this.enabled = true;
 
         return Promise.resolve();
     }
 
-    public close(message: Message): Promise<void> {
+    public close(_message: Message): Promise<void> {
         this.enabled = false;
 
         return Promise.resolve();
