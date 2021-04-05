@@ -8,7 +8,9 @@ const
     commands = new Collection<string, Command>(),
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
-        ssl: true
+        ssl: {
+            rejectUnauthorized: false
+        }
     });
 
 pool.connect();
