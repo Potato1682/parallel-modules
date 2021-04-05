@@ -6,7 +6,12 @@ import Command from "./interfaces/command";
 
 const
     commands = new Collection<string, Command>(),
-    pool = new Pool();
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
+    });
+
+pool.connect();
 
 export { commands, pool };
 
