@@ -32,9 +32,7 @@ for (const file of commandFiles) {
     commands.set(command.name, command);
 }
 
-client.once("ready", async () => {
-    console.log(await pool.query("select roles_channel_id from config where server_id == $1;", [ "\"\" or 1=1;" ]));
-
+client.once("ready", () => {
     console.log(`Logged in with ${client.user?.tag || "[Secret]"}.`);
 });
 
