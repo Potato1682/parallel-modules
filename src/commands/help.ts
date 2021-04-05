@@ -56,7 +56,7 @@ export default class Help extends Command {
             )
             .setFooter("Parallel Modules");
 
-        message.channel.send(dataEmbed);
+        return await message.channel.send(dataEmbed);
     }
 }
 

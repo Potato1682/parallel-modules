@@ -9,7 +9,8 @@ export { commands };
 
 const
     client = new Client(),
-    token = process.argv.length > 2 && process.argv[2] === "--development"
+    isDebugging = process.argv.length > 2 && process.argv[2] === "--development",
+    token = isDebugging
         ? process.env.DISCORD_BOT_TOKEN_DEV
         : process.env.DISCORD_BOT_TOKEN,
     cooldowns = new Collection<string, Collection<string, any>>(),
@@ -73,7 +74,11 @@ client.on("message", async (message) => {
     } catch (error) {
         console.error(error);
 
-        return await message.reply("コマンド実行中にエラーが発生しました。");
+        await message.reply("コマンド実行中にエラーが発生しました。");
+
+        if (isDebugging) {
+            return await message.channel.send(error, { split: true });
+        }
     }
 });
 
