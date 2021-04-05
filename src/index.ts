@@ -26,7 +26,7 @@ for (const file of commandFiles) {
 }
 
 client.once("ready", async () => {
-    await pool.query("select roles_channel_id from config where server_id == $1;", [ "\"\" or 1=1;" ]);
+    console.log(await pool.query("select roles_channel_id from config where server_id == $1;", [ "\"\" or 1=1;" ]));
 
     console.log(`Logged in with ${client.user?.tag || "[Secret]"}.`);
 });
